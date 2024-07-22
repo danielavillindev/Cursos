@@ -8,8 +8,6 @@ Este repositório contém uma coleção de desafios e projetos que realizei ao l
 
 👉🏾 Python Data Science (SENAI): Projetos e exercícios realizados no curso de Programação Python para Data Science no SENAI, incluindo análise de dados, visualização e machine learning.
 
-👉🏾 Desenvolvimento Web: Projetos e exercícios em HTML, CSS e JavaScript, incluindo a criação de websites e aplicações web dinâmicas.
-
 
 ## Objetivo
 

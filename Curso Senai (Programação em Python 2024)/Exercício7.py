@@ -73,11 +73,12 @@ for time in times:
     resultados[time] = 0
 
 for jogo in jogos:
-    resultado = random.choice([0, 1, 2])  # 0: empate, 1: time 1 vence, 2: time 2 vence
-    if resultado == 0:
+    gols_time1 = random.randint(0, 5)
+    gols_time2 = random.randint(0, 5)
+    if gols_time1 == gols_time2:
         resultados[jogo[0]] += 1
         resultados[jogo[1]] += 1
-    elif resultado == 1:
+    elif gols_time1 > gols_time2:
         resultados[jogo[0]] += 3
     else:
         resultados[jogo[1]] += 3
@@ -96,21 +97,27 @@ print("\nQuartas de final:")
 quartas = [(classificados[i], classificados[i+1]) for i in range(0, len(classificados), 2)]
 vencedores_quartas = []
 for jogo in quartas:
-    vencedor = random.choice([jogo[0], jogo[1]])
+    gols_time1 = random.randint(0, 5)
+    gols_time2 = random.randint(0, 5)
+    vencedor = jogo[0] if gols_time1 > gols_time2 else jogo[1]
     vencedores_quartas.append(vencedor)
-    print(f"{jogo[0]} vs {jogo[1]} -> Vencedor: {vencedor}")
+    print(f"{jogo[0]} {gols_time1} vs {jogo[1]} {gols_time2} -> Vencedor: {vencedor}")
 
 print("\nSemifinais:")
 semifinais = [(vencedores_quartas[i], vencedores_quartas[i+1]) for i in range(0, len(vencedores_quartas), 2)]
 vencedores_semifinais = []
 for jogo in semifinais:
-    vencedor = random.choice([jogo[0], jogo[1]])
+    gols_time1 = random.randint(0, 5)
+    gols_time2 = random.randint(0, 5)
+    vencedor = jogo[0] if gols_time1 > gols_time2 else jogo[1]
     vencedores_semifinais.append(vencedor)
-    print(f"{jogo[0]} vs {jogo[1]} -> Vencedor: {vencedor}")
+    print(f"{jogo[0]} {gols_time1} vs {jogo[1]} {gols_time2} -> Vencedor: {vencedor}")
 
 print("\nFinal:")
+gols_time1 = random.randint(0, 5)
+gols_time2 = random.randint(0, 5)
 final = (vencedores_semifinais[0], vencedores_semifinais[1])
-campeao_copa_brasil = random.choice([final[0], final[1]])
-print(f"{final[0]} vs {final[1]} -> Campeão: {campeao_copa_brasil}")
+campeao_copa_brasil = final[0] if gols_time1 > gols_time2 else final[1]
+print(f"{final[0]} {gols_time1} vs {final[1]} {gols_time2} -> Campeão: {campeao_copa_brasil}")
 
 print(f"\nO campeão da Copa do Brasil é: {campeao_copa_brasil}")

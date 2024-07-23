@@ -55,32 +55,62 @@ print(f"lista de impares:{impar}")
 #DESAFIO-56
 import random
 
-lista1=["Flamengo", "Palmeiras", "São Paulo", "Athletico-PR", "Atlético-MG" ,"Corinthians" ,"Fluminense", "Grêmio", "Fortaleza", "Internacional", "Bahia", "Botafogo", "Red Bull Bragantino", "Atlético-GO", "Ceará","Cuiabá"]
-lista2=['Goiás', 'Vasco', 'Juventude', 'Sport', 'CRB', 'Vitória', 'Criciúma', 'Sampaio Corrêa' ,'Operário-PR' ,'Botafogo-SP', 'Brusque', 'Ypiranga-RS', 'América-RN', 'Amazonas', 'Águia de Marabá', 'Sousa-PB']
+lista1 = ["Flamengo", "Palmeiras", "São Paulo", "Athletico-PR", "Atlético-MG", "Corinthians", "Fluminense", "Grêmio", "Fortaleza", "Internacional", "Bahia", "Botafogo", "Red Bull Bragantino", "Atlético-GO", "Ceará", "Cuiabá"]
+lista2 = ["Goiás", "Vasco", "Juventude", "Sport", "CRB", "Vitória", "Criciúma", "Sampaio Corrêa", "Operário-PR", "Botafogo-SP", "Brusque", "Ypiranga-RS", "América-RN", "Amazonas", "Águia de Marabá", "Sousa-PB"]
 
 times = lista1 + lista2
 random.shuffle(times)
 
-jogos=[]
+# Sorteio dos jogos
+jogos = []
 for i in range(len(times)):
     for j in range(i+1, len(times)):
         jogos.append((times[i], times[j]))
+
+# Simulação dos jogos
 resultados = {}
 for time in times:
-    resultados[time]=0
+    resultados[time] = 0
+
 for jogo in jogos:
-    resultado = random.choice([0,1,2])
+    resultado = random.choice([0, 1, 2])  # 0: empate, 1: time 1 vence, 2: time 2 vence
     if resultado == 0:
         resultados[jogo[0]] += 1
         resultados[jogo[1]] += 1
-    elif resultados == 1:
+    elif resultado == 1:
         resultados[jogo[0]] += 3
     else:
         resultados[jogo[1]] += 3
-classificacao= sorted(resultados.items(),
-key=lambda item:item[1],reverse=True)
-print("Classificação Final:")
-for time,pontos in classificacao:
-    print(f"{time}:{pontos} pontos")
-campeao=classificacao[0][0]
-print(f"O campeão é:{campeao}")
+
+# Listar os classificados por turno
+classificacao = sorted(resultados.items(), key=lambda item: item[1], reverse=True)
+print("Classificação final:")
+for time, pontos in classificacao:
+    print(f"{time}: {pontos} pontos")
+
+# Selecionar os 8 primeiros times classificados
+classificados = [time for time, pontos in classificacao[:8]]
+
+# Fase de mata-mata
+print("\nQuartas de final:")
+quartas = [(classificados[i], classificados[i+1]) for i in range(0, len(classificados), 2)]
+vencedores_quartas = []
+for jogo in quartas:
+    vencedor = random.choice([jogo[0], jogo[1]])
+    vencedores_quartas.append(vencedor)
+    print(f"{jogo[0]} vs {jogo[1]} -> Vencedor: {vencedor}")
+
+print("\nSemifinais:")
+semifinais = [(vencedores_quartas[i], vencedores_quartas[i+1]) for i in range(0, len(vencedores_quartas), 2)]
+vencedores_semifinais = []
+for jogo in semifinais:
+    vencedor = random.choice([jogo[0], jogo[1]])
+    vencedores_semifinais.append(vencedor)
+    print(f"{jogo[0]} vs {jogo[1]} -> Vencedor: {vencedor}")
+
+print("\nFinal:")
+final = (vencedores_semifinais[0], vencedores_semifinais[1])
+campeao_copa_brasil = random.choice([final[0], final[1]])
+print(f"{final[0]} vs {final[1]} -> Campeão: {campeao_copa_brasil}")
+
+print(f"\nO campeão da Copa do Brasil é: {campeao_copa_brasil}")
